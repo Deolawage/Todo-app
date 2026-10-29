@@ -1,38 +1,41 @@
-//Testing Logic
 
 import ProjectManager from "./ProjectManager.js";
+import StorageManager from "./Storage.js";
 
 const manager = new ProjectManager();
 
-// 1. Create two projects
+// Create a project
 const personal = manager.addProject("Personal");
-const school = manager.addProject("School");
-console.log("Projects:", manager.projects);
-console.log("Selected ID:", manager.selectedProjectId);
-console.log("Selected project:", manager.getSelectedProject());
-console.log("Personal ID:", personal.id);
-console.log("School ID:", school.id);
-console.log("Project IDs:", manager.projects.map(project => project.id));
-// 2. Check the initially selected project
-console.log(manager.getSelectedProject().name);
-// Expected: "Personal"
 
-// 3. Select School
-manager.selectProject(school.id);
-console.log(manager.getSelectedProject().name);
-// Expected: "School"
+// Add a todo
+const todo = personal.addTodo({
+    title: "Learn localStorage",
+    description: "Practice saving and retrieving application state",
+    dueDate: "2026-10-30",
+    priority: "high",
+    completed: false
+});
 
-// 4. Try selecting a nonexistent project
-manager.selectProject("invalid-id");
-console.log(manager.getSelectedProject().name);
-// Expected: "School"
+// Select the project
+manager.selectProject(personal.id);
 
-// 5. Delete the selected project
-manager.deleteProject(school.id);
-console.log(manager.getSelectedProject().name);
-// Expected: "Personal"
+// Simulate the relevant controller state
+const appController = {
+    selectedTodoId: todo.id
+};
 
-// 6. Delete the remaining project
-manager.deleteProject(personal.id);
-console.log(manager.getSelectedProject());
-// Expected: null
+// Save the application state
+StorageManager.saveStore(manager, appController);
+
+// Retrieve the saved state
+const savedData = StorageManager.getStore();
+
+// Inspect the result
+console.log("Saved data:", savedData);
+console.log("Project name:", savedData.projects[0].name);
+console.log("Todo title:", savedData.projects[0].todos[0].title);
+console.log("Selected project ID:", savedData.selectedProjectId);
+console.log("Selected todo ID:", savedData.selectedTodoId);
+console.log("Initialized:", savedData.initialized);
+
+export default test;

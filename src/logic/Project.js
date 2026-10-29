@@ -38,6 +38,16 @@ class Project{
     }
 
 
+static fromData(data) {
+    const project = new Project(data.name, data.id);
+
+    data.todos.forEach(todoData => {
+        project.addTodo(todoData);
+    });
+
+    return project;
+}
+
 
     
 }

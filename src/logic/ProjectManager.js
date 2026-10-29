@@ -3,7 +3,7 @@
 import Project from "./Project.js";
 
 
-class projectManager{
+class ProjectManager{
     constructor(){
         this.projects = [];
         this.selectedProjectId = null;
@@ -32,10 +32,10 @@ class projectManager{
 
         if(!project) return;
 
-        this.selectProjectId = project.id;
+        this.selectedProjectId = project.id;
     }
     getSelectedProject(){
-        return this.findProject(this.selectProjectId) ?? null;
+        return this.findProject(this.selectedProjectId) ?? null;
 
 
     }
@@ -56,4 +56,4 @@ class projectManager{
           }
 }
 
-export default projectManager;
+export default ProjectManager;

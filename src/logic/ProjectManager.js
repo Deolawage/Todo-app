@@ -19,8 +19,8 @@ class ProjectManager{
         }
 
         return project;
-
     }
+
 
     findProject(projectId){
         return this.projects.find(project => project.id === projectId);
@@ -53,7 +53,25 @@ class ProjectManager{
             this.selectedProjectId = this.projects[0]?.id ?? null;
 
         }
-          }
+    
+    }
+
+restoreFromData(data){
+    this.projects = data.projects.map(projectData => 
+        project.fromData(projectData)
+    );
+
+const selectedProjectExists = this.projects.some(
+    project => project.id === data.selectedProjectId
+);
+
+this.selectedProjectId = selectedProjectExists
+  ? data.selectedProjectId
+  : this.projects[0]?.id ?? null;
+
+
 }
+}
+
 
 export default ProjectManager;

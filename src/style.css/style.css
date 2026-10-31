@@ -1,0 +1,25 @@
+/*Style.css*/
+
+.delete-btn {
+    opacity: 0;
+    visibility: hidden;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.project-item:hover .delete-btn {
+    opacity: 1;
+    visibility: visible;
+}
+
+.project-item:focus-within .delete-btn {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+.delete-btn {
+    transition: opacity 0.2s ease;
+}
+

@@ -1,6 +1,6 @@
 //Sidebar.js
 
-function renderSidebar(projects, selectedProjectId, onProjectSelect){
+function renderSidebar(projects, selectedProjectId, onProjectSelect, onAddProject, onDeleteProject){
 
     const content = document.getElementById("content");
 
@@ -13,11 +13,20 @@ if (!sideContainer){
 
 sideContainer.replaceChildren();
 
+const addProjectButton = document.createElement("button");
+addProjectButton.textContent = "+ Add Project";
+addProjectButton.classList.add("add-project-btn");
+
+addProjectButton.addEventListener("click", () => {
+    onAddProject();
+
+})
+
+sideContainer.append(addProjectButton);
+
 
 projects.forEach(project => {
     const projectElement = document.createElement("div");
-
-    projectElement.textContent = project.name;
     projectElement.classList.add("project-item");
 
 
@@ -30,6 +39,21 @@ projects.forEach(project => {
     onProjectSelect(project.id);
 });
 
+const projectName = document.createElement("span");
+projectName.textContent = project.name;
+projectElement.append(projectName);
+
+ 
+const deleteButton = document.createElement("button");
+deleteButton.textContent = "x";
+deleteButton.classList.add("delete-btn");
+
+deleteButton.addEventListener("click", (event) =>{
+    event.stopPropagation();
+    onDeleteProject(project.id);
+})
+
+projectElement.append(deleteButton);
 
      sideContainer.append(projectElement); 
 

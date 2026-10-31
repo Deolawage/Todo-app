@@ -13,7 +13,7 @@ class AppController{
     }
 
     initialize(){
-        const saveData = StorageManager.getStore();
+        const savedData = StorageManager.getStore();
 
         if(savedData){
             this.projectManager.restoreFromData(savedData);

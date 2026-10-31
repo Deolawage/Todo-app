@@ -1,48 +1,31 @@
 
+import AppController from "./appController.js";
 import Project from "./Project.js";
 import Todo from "./Todo.js";
-import StorageManager from "./Storage.js";
 
-// Retrieve previously saved data
-const savedData = StorageManager.getStore();
+const app = new AppController();
 
-if (savedData && savedData.projects.length > 0) {
-    // Reconstruct the first saved project
-    const savedProjectData = savedData.projects[0];
-    const restoredProject = Project.fromData(savedProjectData);
+const manager = app.projectManager;
 
-    // Verify the reconstruction
-    console.log(
-        "Is a Project instance:",
-        restoredProject instanceof Project
-    );
+console.log("Projects:", manager.projects);
+console.log("Selected project:", manager.getSelectedProject());
+console.log("Selected todo ID:", app.selectedTodoId);
 
-    console.log(
-        "Project ID preserved:",
-        restoredProject.id === savedProjectData.id
-    );
+// Check class instances
+console.log(
+    "Projects are Project instances:",
+    manager.projects.every(project => project instanceof Project)
+);
 
-    console.log(
-        "Project name preserved:",
-        restoredProject.name === savedProjectData.name
-    );
+console.log(
+    "Todos are Todo instances:",
+    manager.projects.every(project =>
+        project.toDo.every(todo => todo instanceof Todo)
+    )
+);
 
-    console.log(
-        "Restored todos:",
-        restoredProject.toDo
-    );
-
-    console.log(
-        "Are todos Todo instances:",
-        restoredProject.toDo.every(todo => todo instanceof Todo)
-    );
-
-    console.log(
-        "Todo IDs preserved:",
-        restoredProject.toDo.every((todo, index) =>
-            todo.id === savedProjectData.todos[index].id
-        )
-    );
-} else {
-    console.log("No saved projects found. Run the storage test first.");
-}
+// Check localStorage
+console.log(
+    "Saved application state:",
+    JSON.parse(localStorage.getItem("todo-list-data"))
+);

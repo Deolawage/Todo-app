@@ -58,7 +58,7 @@ class ProjectManager{
 
 restoreFromData(data){
     this.projects = data.projects.map(projectData => 
-        project.fromData(projectData)
+        Project.fromData(projectData)
     );
 
 const selectedProjectExists = this.projects.some(

@@ -3,6 +3,8 @@
 import ProjectManager from "./ProjectManager.js";
 import StorageManager from "./Storage.js";
 import renderSidebar from "../dom/sidebar.js";
+import renderTodoForm from "../dom/todoForm.js";
+import renderTodos from "../dom/todoList.js";
 
 
 class AppController{
@@ -59,6 +61,19 @@ class AppController{
 
       (projectId) => this.deleteProject(projectId)
             );
+
+            renderTodoForm("#content", (todoData) => {
+    this.addTodo(todoData);
+});
+
+const selectedProject = this.projectManager.getSelectedProject();
+
+renderTodos(
+    selectedProject ? selectedProject.toDo : [],
+    this.selectedTodoId,
+    (todoId) => this.selectTodo(todoId),
+    (todoId) => this.deleteTodo(todoId)
+);
         }
 
         selectProject(projectId) {
@@ -107,8 +122,34 @@ class AppController{
 
     this.saveState();
     this.render();
-    
+
     }
+
+    selectTodo(todoId) {
+    const selectedProject = this.projectManager.getSelectedProject();
+
+    if (!selectedProject || !selectedProject.findTodo(todoId)) return;
+
+    this.selectedTodoId = todoId;
+    this.render();
+
+    this.saveState();
+}
+
+deleteTodo(todoId) {
+    const selectedProject = this.projectManager.getSelectedProject();
+
+    if (!selectedProject || !selectedProject.findTodo(todoId)) return;
+
+    selectedProject.removeTodo(todoId);
+
+    if (this.selectedTodoId === todoId) {
+        this.selectedTodoId = null;
+    }
+
+    this.saveState();
+    this.render();
+}
 
     }
 

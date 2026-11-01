@@ -12,6 +12,7 @@ export default {
         filename: "main.js",
         path: path.resolve(import.meta.dirname, "dist"),
         clean: true,
+          publicPath: "./",
     },
 
     plugins: [
@@ -32,7 +33,7 @@ export default {
                 loader: "html-loader",
             },
 
-            {
+                        {
                 test: /\.(png|svg|jpg|jpeg|gif|webp)$/i,
                 type: "asset/resource",
             },

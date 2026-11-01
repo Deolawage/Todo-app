@@ -72,7 +72,8 @@ renderTodos(
     selectedProject ? selectedProject.toDo : [],
     this.selectedTodoId,
     (todoId) => this.selectTodo(todoId),
-    (todoId) => this.deleteTodo(todoId)
+    (todoId) => this.deleteTodo(todoId),
+    (todoId) => this.toggleTodo(todoId)
 );
         }
 
@@ -146,6 +147,18 @@ deleteTodo(todoId) {
     if (this.selectedTodoId === todoId) {
         this.selectedTodoId = null;
     }
+
+    this.saveState();
+    this.render();
+}
+
+
+toggleTodo(todoId) {
+    const selectedProject = this.projectManager.getSelectedProject();
+
+    if (!selectedProject || !selectedProject.findTodo(todoId)) return;
+
+    selectedProject.toggleTodo(todoId);
 
     this.saveState();
     this.render();

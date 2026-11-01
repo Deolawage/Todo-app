@@ -1,7 +1,7 @@
 //TodoList.js
 
 
-function renderTodos(todos, selectedTodoId, onTodoSelect, onTodoDelete) {
+function renderTodos(todos, selectedTodoId, onTodoSelect, onTodoDelete, onTodoToggle) {
     const taskListEl = document.getElementById("task-list");
 
     taskListEl.replaceChildren();
@@ -27,16 +27,29 @@ function renderTodos(todos, selectedTodoId, onTodoSelect, onTodoDelete) {
         const priority = document.createElement("span");
         priority.textContent = todo.priority;
 
+        // Delete button
         const deleteButton = document.createElement("button");
         deleteButton.textContent = "Delete";
 
-          deleteButton.addEventListener("click", (event) => {
+        deleteButton.addEventListener("click", (event) => {
             event.stopPropagation();
             onTodoDelete(todo.id);
         });
 
+        // Complete button
+        const completeButton = document.createElement("button");
 
-        li.append(title, dueDate, priority, deleteButton);
+        completeButton.textContent = todo.completed
+            ? "Mark Incomplete"
+            : "Mark Complete";
+
+        completeButton.addEventListener("click", (event) => {
+            event.stopPropagation();
+            onTodoToggle(todo.id);
+        });
+
+        // Append elements
+        li.append(title, dueDate, priority, deleteButton, completeButton);
 
         li.addEventListener("click", () => {
             onTodoSelect(todo.id);

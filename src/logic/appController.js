@@ -5,6 +5,7 @@ import StorageManager from "./Storage.js";
 import renderSidebar from "../dom/sidebar.js";
 import renderTodoForm from "../dom/todoForm.js";
 import renderTodos from "../dom/todoList.js";
+import renderTodoDetails from "../dom/todoDetails.js";
 
 
 class AppController{
@@ -68,13 +69,20 @@ class AppController{
 
 const selectedProject = this.projectManager.getSelectedProject();
 
+const selectedTodo = selectedProject
+    ? selectedProject.findTodo(this.selectedTodoId)
+    : null;
+
 renderTodos(
     selectedProject ? selectedProject.toDo : [],
     this.selectedTodoId,
+
     (todoId) => this.selectTodo(todoId),
     (todoId) => this.deleteTodo(todoId),
     (todoId) => this.toggleTodo(todoId)
 );
+
+    renderTodoDetails(selectedTodo);
         }
 
         selectProject(projectId) {

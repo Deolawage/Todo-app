@@ -1,25 +1,381 @@
 /*Style.css*/
 
+:root {
+    /* Backgrounds */
+    --bg-primary: #f5f6fa;
+    --bg-sidebar: #20232b;
+    --bg-card: #ffffff;
+
+    /* Text */
+    --text-primary: #20232b;
+    --text-secondary: #6b7280;
+    --text-light: #ffffff;
+
+    /* Accent */
+    --accent: #6366f1;
+    --accent-hover: #4f46e5;
+
+    /* Borders */
+    --border: #e5e7eb;
+}
+
+
+
+/* Global reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f6fa;
+    color: #20232b;
+}
+
+/* Main application layout */
+#content {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    min-height: 100vh;
+    background-color: #20232b;
+    color: #ffffff;
+    padding: 25px 15px;
+    flex-shrink: 0;
+}
+
+/* Main workspace */
+.main-content {
+    flex: 1;
+    padding: 35px;
+    min-width: 0;
+}
+
+
+/* Sidebar layout */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Add project button */
+.add-project-btn {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--accent);
+    color: var(--text-light);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.add-project-btn:hover {
+    background-color: var(--accent-hover);
+}
+
+/* Project items */
+.project-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 8px;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.project-item:hover {
+    background-color: #343844;
+}
+
+.project-item.active {
+    background-color: #343844;
+    border-left: 3px solid var(--accent);
+}
+
+/* Delete button */
 .delete-btn {
     opacity: 0;
     visibility: hidden;
     border: none;
     background: transparent;
+    color: var(--text-light);
     cursor: pointer;
+    transition: opacity 0.2s ease;
 }
 
-.project-item:hover .delete-btn {
-    opacity: 1;
-    visibility: visible;
-}
-
+.project-item:hover .delete-btn,
 .project-item:focus-within .delete-btn {
     opacity: 1;
     visibility: visible;
 }
 
 
-.delete-btn {
-    transition: opacity 0.2s ease;
+/* Todo form */
+#todo-form-container {
+    background-color: var(--bg-card);
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    margin-bottom: 25px;
 }
 
+#todo-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#todo-form input,
+#todo-form textarea,
+#todo-form select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+}
+
+#todo-form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+#todo-form input:focus,
+#todo-form textarea:focus,
+#todo-form select:focus {
+    border-color: var(--accent);
+}
+
+#todo-form button {
+    align-self: flex-start;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--accent);
+    color: var(--text-light);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#todo-form button:hover {
+    background-color: var(--accent-hover);
+}
+
+
+/* Modal */
+#todo-dialog {
+    width: 450px;
+    max-width: 90%;
+    margin: auto;
+    padding: 30px;
+    border: none;
+    border-radius: 14px;
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal backdrop */
+#todo-dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(3px);
+}
+
+/* Close button */
+#close-todo-form {
+    display: block;
+    margin-left: auto;
+    margin-bottom: 15px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 22px;
+    cursor: pointer;
+}
+
+#close-todo-form:hover {
+    background-color: var(--border);
+}
+
+/* Open modal button */
+#open-todo-form {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--accent);
+    color: var(--text-light);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#open-todo-form:hover {
+    background-color: var(--accent-hover);
+}
+
+
+
+
+
+/* Todo list */
+#task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    list-style: none;
+    margin-top: 25px;
+}
+
+/* Individual task */
+#task-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 18px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#task-list li:hover {
+    border-color: var(--accent);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Selected task */
+#task-list li.selected {
+    border-color: var(--accent);
+    background-color: #f0f0ff;
+}
+
+/* Completed task */
+#task-list li.completed span:first-child {
+    text-decoration: line-through;
+    color: var(--text-secondary);
+}
+
+/* Task buttons */
+#task-list li button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+/* Delete button */
+#task-list li button:first-of-type {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+/* Complete button */
+#task-list li button:last-of-type {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+
+/* Todo details */
+#todo-details {
+    margin-top: 25px;
+    padding: 25px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    min-height: 150px;
+}
+
+/* Task title */
+#todo-details h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+/* Task information */
+#todo-details p {
+    margin-bottom: 12px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Empty state */
+#todo-details p:first-child:last-child {
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+
+
+
+
+/* Tablet */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+
+    #task-list li {
+        flex-wrap: wrap;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    #content {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        min-height: auto;
+        padding: 15px;
+    }
+
+    .main-content {
+        padding: 15px;
+    }
+
+    #task-list li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #todo-dialog {
+        width: 95%;
+        max-width: 95%;
+        padding: 20px;
+    }
+
+    #open-todo-form {
+        width: 100%;
+    }
+}

@@ -10,6 +10,20 @@ if (existingForm) {
 
   const parent = document.querySelector(parentId);
 
+  const dialog = document.querySelector("#todo-dialog");
+const openButton = document.querySelector("#open-todo-form");
+const closeButton = document.querySelector("#close-todo-form");
+
+openButton.onclick = () => dialog.showModal();
+closeButton.onclick = () => dialog.close();
+
+dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) {
+        dialog.close();
+    }
+});
+
+
   const form = document.createElement('form');
   form.id = 'todo-form';
 
@@ -74,8 +88,10 @@ if (existingForm) {
     priority: priority
 });
 
-    
+    dialog.close();    
+
     form.reset(); 
+
   });
 
   

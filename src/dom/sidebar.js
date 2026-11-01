@@ -24,14 +24,22 @@ addProjectButton.addEventListener("click", () => {
 
 sideContainer.append(addProjectButton);
 
+if (projects.length === 0) {
+    const emptyMessage = document.createElement("p");
+    emptyMessage.textContent = "No projects yet. Create one to get started.";
+    emptyMessage.classList.add("empty-projects");
+
+    sideContainer.append(emptyMessage);
+}
+
 
 projects.forEach(project => {
     const projectElement = document.createElement("div");
     projectElement.classList.add("project-item");
 
 
-     if (project.id === selectedProjectId){
-        projectElement.classList.add("active");
+    projectElement.classList.add("active");
+    if (project.id === selectedProjectId){
 
      }
 
@@ -66,6 +74,6 @@ if(!sideContainer.parentElement){
 
 
 
-}
 
+}
 export default renderSidebar;

@@ -63,7 +63,7 @@ class AppController{
       (projectId) => this.deleteProject(projectId)
             );
 
-            renderTodoForm("#content", (todoData) => {
+            renderTodoForm("#todo-form-container", (todoData) => {
     this.addTodo(todoData);
 });
 
